@@ -10,6 +10,8 @@ namespace Organizer
             // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
             Console.WriteLine("Hello World!");
             ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
+            List <int> randomNumbers = MakeList(10);
+            ShowList("randomNumbers", randomNumbers);
         }
 
 
@@ -39,6 +41,17 @@ namespace Organizer
                 Console.Write(string.Format("{0,3}, ", theList[index]));  // Show each number right aligned within 3 characters, with a comma and a space
             }
             Console.WriteLine();
+        }
+
+        static List<int> MakeList(int N)
+        {
+           List<int> numbers = new List<int>();
+            var random = new Random ();
+            for (int i = 0; i < N; i++) 
+            {
+                numbers.Add(random.Next(-99, 99));
+            }
+            return numbers;
         }
     }
 }
