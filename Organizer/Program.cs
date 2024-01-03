@@ -7,21 +7,25 @@ namespace Organizer
     {
         public static void Main(string[] args)
         {
-            // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
-            Console.WriteLine("Hello World!");
-            ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
+            ShiftHighestSort shiftSorter = new ShiftHighestSort();
+            RotatePivotSort rotateSorter = new RotatePivotSort();
             List <int> randomNumbers = MakeList(10);
-            ShowList("randomNumbers", randomNumbers);
+
+            ShowList("Unsorted List", randomNumbers);
+
+            // ShiftHigestSort
+            List<int> shiftSortedNumbers = shiftSorter.ShiftSort(randomNumbers);
+            ShowList("Sorted List ShiftHighestSort", shiftSortedNumbers);
+            bool isShiftSorted = ValidateSortedArray(shiftSortedNumbers);
+            Console.WriteLine($"\nIs the list correctly sorted? {isShiftSorted}");    
+            
+            // RotateSort
+            List<int> rotateSortedNumbers = rotateSorter.RotateSort(randomNumbers);
+            ShowList("Sorted List RotateSort", rotateSortedNumbers);
+            bool isRotateSorted = ValidateSortedArray(rotateSortedNumbers);
+            Console.WriteLine($"\nIs the list correctly sorted? {isRotateSorted}");
         }
 
-
-        /* Example of a static function */
-
-        /// <summary>
-        /// Show the list in lines of 20 numbers each
-        /// </summary>
-        /// <param name="label">The label for this list</param>
-        /// <param name="theList">The list to show</param>
         public static void ShowList(string label, List<int> theList)
         {
             int count = theList.Count;
@@ -52,6 +56,18 @@ namespace Organizer
                 numbers.Add(random.Next(-99, 99));
             }
             return numbers;
+        }
+
+        static bool ValidateSortedArray(List<int> array)
+        {
+            for (int i = 1; i < array.Count; i++)
+            {
+                if (array[i] < array[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
