@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Organizer
 {
@@ -9,21 +10,31 @@ namespace Organizer
         {
             ShiftHighestSort shiftSorter = new ShiftHighestSort();
             RotatePivotSort rotateSorter = new RotatePivotSort();
-            List <int> randomNumbers = MakeList(10);
 
+            // UnsortedList with random numbers
+            Stopwatch unsortedStopwatch = Stopwatch.StartNew();
+            List <int> randomNumbers = MakeList(10);
+            unsortedStopwatch.Stop();
             ShowList("Unsorted List", randomNumbers);
+            Console.WriteLine($"UnsortedList Time: {unsortedStopwatch.ElapsedTicks} ticks");
 
             // ShiftHigestSort
+            Stopwatch shiftStopwatch = Stopwatch.StartNew();
             List<int> shiftSortedNumbers = shiftSorter.ShiftSort(randomNumbers);
+            shiftStopwatch.Stop();
             ShowList("Sorted List ShiftHighestSort", shiftSortedNumbers);
             bool isShiftSorted = ValidateSortedArray(shiftSortedNumbers);
-            Console.WriteLine($"\nIs the list correctly sorted? {isShiftSorted}");    
-            
+            Console.WriteLine($"Is the list correctly sorted? {isShiftSorted}");    
+            Console.WriteLine($"ShiftHighestSort Time: {shiftStopwatch.ElapsedTicks} ticks");
+
             // RotateSort
+            Stopwatch rotateStopwatch = Stopwatch.StartNew();
             List<int> rotateSortedNumbers = rotateSorter.RotateSort(randomNumbers);
+            rotateStopwatch.Stop();
             ShowList("Sorted List RotateSort", rotateSortedNumbers);
             bool isRotateSorted = ValidateSortedArray(rotateSortedNumbers);
-            Console.WriteLine($"\nIs the list correctly sorted? {isRotateSorted}");
+            Console.WriteLine($"Is the list correctly sorted? {isRotateSorted}");
+            Console.WriteLine($"RotateSort Time: {rotateStopwatch.ElapsedTicks} ticks");
         }
 
         public static void ShowList(string label, List<int> theList)
