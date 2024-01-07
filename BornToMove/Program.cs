@@ -24,7 +24,9 @@ class Program
                 Console.WriteLine("Picking random move");
                 Console.WriteLine("---------------");
                 var randomMove = moveCrud.ReadRandomMove();
+                moveId = (int)randomMove["id"];
                 PrintResult(randomMove);
+                RateMove(moveId, ratingCrud);
             }
             else if (answer == "pick")
             {
