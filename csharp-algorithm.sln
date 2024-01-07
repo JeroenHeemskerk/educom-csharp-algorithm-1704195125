@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}") = "BornToMove", "BornToMove\BornToMove.csproj", "{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
