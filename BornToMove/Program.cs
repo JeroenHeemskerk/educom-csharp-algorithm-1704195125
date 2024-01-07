@@ -6,7 +6,7 @@ class Program
     {
         Crud crud = new Crud();
         MoveCrud moveCrud = new MoveCrud(crud);
-        //RatingCrud ratingCrud = new RatingCrud(crud);
+        RatingCrud ratingCrud = new RatingCrud(crud);
         
         Console.WriteLine("It's time to move!");
         Console.WriteLine("Do you want a random move or pick a move?");
@@ -48,6 +48,7 @@ class Program
                         if (moveById != null)
                         {
                             PrintResult(moveById);
+                            RateMove(moveId, ratingCrud);
                         } 
                         else 
                         {
@@ -75,40 +76,40 @@ class Program
         PrintResult(result);
         */
         
-        /*/Rating
-        static void RateMove(int moveId)
-        {
-            Console.WriteLine("Please add your rating for this move.");
-            Console.WriteLine("Pick a number from 1-5 for the review:");
-
-            int review;
-            if (int.TryParse(Console.ReadLine(), out review) && review >= 1 && review <= 5)
-            {
-                Console.WriteLine("Your review rating is " + review);
-
-                Console.WriteLine("Now, pick a number from 1-5 for the intensity:");
-                
-                int intensity;
-                if (int.TryParse(Console.ReadLine(), out intensity) && intensity >= 1 && intensity <= 5)
-                {
-                    Console.WriteLine("Your intensity rating is " + intensity);
-                    var rating = ratingCrud.CreateRating(moveId, review, intensity);
-                }
-                else
-                {
-                    Console.WriteLine("Something went wrong. Choose a number 1-5 for intensity.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Something went wrong. Choose a number 1-5 for the review.");
-            }
-        }*/
-
-
         // Sluit de toepassing
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
+    }
+        
+    //Rating
+    static void RateMove(int moveId, RatingCrud ratingCrud)
+    {
+        Console.WriteLine("Please add your rating for this move.");
+        Console.WriteLine("Pick a number from 1-5 for the review:");
+
+        int review;
+        if (int.TryParse(Console.ReadLine(), out review) && review >= 1 && review <= 5)
+        {
+            Console.WriteLine("Your review rating is " + review);
+
+            Console.WriteLine("Now, pick a number from 1-5 for the intensity:");
+            
+            int intensity;
+            if (int.TryParse(Console.ReadLine(), out intensity) && intensity >= 1 && intensity <= 5)
+            {
+                Console.WriteLine("Your intensity rating is " + intensity);
+                ratingCrud.CreateRating(moveId, review, intensity);
+                Console.WriteLine("Your rating has been saved. Thank you for joining!");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong. Choose a number 1-5 for intensity.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Something went wrong. Choose a number 1-5 for the review.");
+        }
     }
 
     static void PrintResults(dynamic results)
