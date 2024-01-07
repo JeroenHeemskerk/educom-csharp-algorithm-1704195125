@@ -1,4 +1,5 @@
 using System;
+using System.Transactions;
 
 class Program
 {
@@ -10,7 +11,7 @@ class Program
         
         Console.WriteLine("It's time to move!");
         Console.WriteLine("Do you want a random move or pick a move?");
-        Console.WriteLine("Typ 'random' or 'pick':");
+        Console.WriteLine("Type 'random' or 'pick':");
         string answer;
         int moveId;
         string input;
@@ -38,25 +39,56 @@ class Program
                 while (true)
                 { 
                     Console.WriteLine("Pick a move by typing the id nummer here:");
+                    Console.WriteLine("If you want to add a move type 0.");
                     input = Console.ReadLine();
                     if (int.TryParse(input, out moveId))
                     {
-                        Console.WriteLine("---------------");
-                        Console.WriteLine("Getting move with id: " + moveId);
-                        Console.WriteLine("---------------");
-                        Console.WriteLine("Reading the move you picked...");
-                        Console.WriteLine("---------------");
-                        var moveById = moveCrud.ReadMoveById(moveId);
-                        if (moveById != null)
+                        if (moveId == 0)
                         {
-                            PrintResult(moveById);
-                            RateMove(moveId, ratingCrud);
+                            Console.WriteLine("Enter the name of the move:");
+                            string name = Console.ReadLine();
+                            Console.WriteLine("Checking if a move already exists...");
+                            var result = moveCrud.ReadMoveByName(name);
+                            if (result != null)
+                            {
+                                Console.WriteLine("This move already exist");
+                            }
+                            else 
+                            {
+                                Console.WriteLine("Enter a description of the move:");
+                                string description = Console.ReadLine();
+                                Console.WriteLine("Enter the sweatrate of the move from 1-5:");
+                                if (int.TryParse(Console.ReadLine(), out int sweatRate)&& sweatRate >= 1 && sweatRate <= 5)
+                                {
+                                    moveCrud.CreateMove(name, description, sweatRate);
+                                    Console.WriteLine("Move created successfully.");
+                                    break;
+                                }
+                                else 
+                                {
+                                    Console.WriteLine("Invalid input for sweat rate. Please enter a valid number.");
+                                }
+                            }
                         } 
                         else 
                         {
-                            continue;
+                            Console.WriteLine("---------------");
+                            Console.WriteLine("Getting move with id: " + moveId);
+                            Console.WriteLine("---------------");
+                            Console.WriteLine("Reading the move you picked...");
+                            Console.WriteLine("---------------");
+                            var moveById = moveCrud.ReadMoveById(moveId);
+                            if (moveById != null)
+                            {
+                                PrintResult(moveById);
+                                RateMove(moveId, ratingCrud);
+                            } 
+                            else 
+                            {
+                                continue;
+                            }
+                            break;
                         }
-                        break;
                     }
                     else
                     {
@@ -69,14 +101,6 @@ class Program
             } 
 
         } while (answer != "random" && answer != "pick");
-
-        
-
-        /*
-        Console.WriteLine("Checking if a move already exists...");
-        var result = moveCrud.ReadMoveByName("Test Move");
-        PrintResult(result);
-        */
         
         // Sluit de toepassing
         Console.WriteLine("Press any key to exit...");

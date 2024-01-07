@@ -24,15 +24,9 @@ public class MoveCrud
 
         dynamic checkMoveExist = _crud.ReadOneRow(sql, parameters);
 
-        if (checkMoveExist == null)
-        {
-            return new Dictionary<string, object> { { "result", RESULT_OK } };
-        }
-        else
-        {
-            return new Dictionary<string, object> { { "result", RESULT_MOVE_ALREADY_EXIST } };
-        }
+        return checkMoveExist;
     }
+
 
     //Move toevoegen
     public void CreateMove(string name, string description, int sweatRate)
