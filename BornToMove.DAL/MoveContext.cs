@@ -9,17 +9,30 @@ using System.Threading.Tasks;
 namespace BornToMove.DAL
 {
 
-    internal class MoveContext : DbContext 
+    public class MoveContext : DbContext 
     {
-        private const string MYSQL_CONNECTION_STRING = "Server=localhost; User ID=nicole; Password=cbfBC&~*4mmQmu; Database=Born2Move";
-        public DbSet<Move> Move { get; set; }
+        private const string MYSQL_CONNECTION_STRING = "Server=localhost; User ID=nicole; Password=4cbfBC&~*4mmQmu; Database=Born2Move";
+        public DbSet<Move> Moves { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder) 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
-            optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, ServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, ServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
+            }
             
             optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
             base.OnConfiguring(optionsBuilder);
         }
+
+       /*protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder) 
+        {
+            optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, ServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
+            optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, MySqlServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
+
+            
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+            base.OnConfiguring(optionsBuilder);
+        }*/
     }
 }

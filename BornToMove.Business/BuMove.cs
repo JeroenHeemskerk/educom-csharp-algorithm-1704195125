@@ -1,44 +1,52 @@
 ﻿using System.Collections.Generic;
-using BornToMove.DAL.MoveCrud;
+using BornToMove.DAL;
 
 namespace BornToMove.Business
-
-public class BuMove
 {
-    private MoveCrud moveCrud;
-
-    public BuMove()
+    public class BuMove
     {
-        moveCrud = new MoveCrud();
-    }
+        private MoveCrud MoveCrud;
 
-    //Willekeurige Move 
-    public Move GetRandomMove()
-    {
+        public BuMove(MoveCrud moveCrud)
+        {
+            MoveCrud = moveCrud;
+        }
 
-    }
+        //Willekeurige Move 
+        public Move GetRandomMove()
+        {
+            return MoveCrud.ReadRandomMove();
+        }
 
-    //Lijst met alle moves
-    public List<Move> GetAllMoves()
-    {
-        return moveCrud.ReadAllMoves();
-    }
+        //Lijst met alle moves
+        public List<Move> GetAllMoves()
+        {
+            return MoveCrud.ReadAllMoves();
+        }
 
-    //Move by id
-    public Move GetMoveById(int moveId)
-    {
-        return moveCrud.ReadMoveById(moveId);
-    }
+        //Move by id
+        public Move GetMoveById(int moveId)
+        {
+            return MoveCrud.ReadMoveById(moveId);
+        }
 
-    //Move controleren en opslaan
-    public void SaveMove(Move move)
-    {
-        moveCrud.CreateMove(move);
-    }
+        //Move by name
+        public Move GetMoveByName(string name)
+        {
+            return MoveCrud.ReadMoveByName(name);
+        }
 
-    //Move controleren en updaten
-    public void UpdateMove(Move move)
-    {
-        moveCrud.UpdateMoveById(move);
+        //Move controleren en opslaan
+        public void SaveMove(string name, string description, int sweatRate)
+        {
+            Move move = new Move(name, description, sweatRate);
+            MoveCrud.CreateMove(move);
+        }
+
+        //Move controleren en updaten
+        public void UpdateMove(Move move)           //aanpassen dat hij 
+        {
+            MoveCrud.UpdateMoveById(move);
+        }
     }
 }

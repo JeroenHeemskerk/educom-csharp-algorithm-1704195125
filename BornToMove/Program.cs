@@ -1,13 +1,15 @@
 using System;
 using System.Transactions;
+using BornToMove.Business;
+using BornToMove.DAL;
 
 class Program
 {
     static void Main()
     {
-        Crud crud = new Crud();
-        MoveCrud moveCrud = new MoveCrud(crud);
-        RatingCrud ratingCrud = new RatingCrud(crud);
+        MoveContext moveContext = new MoveContext();
+        MoveCrud moveCrud = new MoveCrud(moveContext);
+        BuMove buMove = new BuMove(moveCrud);
         
         Console.WriteLine("It's time to move!");
         Console.WriteLine("Do you want a random move or pick a move?");
@@ -24,17 +26,17 @@ class Program
                 Console.WriteLine("---------------");
                 Console.WriteLine("Picking random move");
                 Console.WriteLine("---------------");
-                var randomMove = moveCrud.ReadRandomMove();
-                moveId = (int)randomMove["id"];
+                var randomMove = buMove.GetRandomMove();
+                moveId = randomMove.Id;
                 PrintResult(randomMove);
-                RateMove(moveId, ratingCrud);
+                //RateMove(moveId, buMove.GetRatingCrud());
             }
             else if (answer == "pick")
             {
                 Console.WriteLine("---------------");
                 Console.WriteLine("Reading all moves...");
                 Console.WriteLine("---------------");
-                var allMoves = moveCrud.ReadAllMoves();
+                var allMoves = buMove.GetAllMoves();
                 PrintResults(allMoves);
                 while (true)
                 { 
@@ -48,7 +50,7 @@ class Program
                             Console.WriteLine("Enter the name of the move:");
                             string name = Console.ReadLine();
                             Console.WriteLine("Checking if a move already exists...");
-                            var result = moveCrud.ReadMoveByName(name);
+                            var result = buMove.GetMoveByName(name);
                             if (result != null)
                             {
                                 Console.WriteLine("This move already exist");
@@ -60,7 +62,7 @@ class Program
                                 Console.WriteLine("Enter the sweatrate of the move from 1-5:");
                                 if (int.TryParse(Console.ReadLine(), out int sweatRate)&& sweatRate >= 1 && sweatRate <= 5)
                                 {
-                                    moveCrud.CreateMove(name, description, sweatRate);
+                                    buMove.SaveMove(name, description, sweatRate);
                                     Console.WriteLine("Move created successfully.");
                                     break;
                                 }
@@ -81,7 +83,7 @@ class Program
                             if (moveById != null)
                             {
                                 PrintResult(moveById);
-                                RateMove(moveId, ratingCrud);
+                                //RateMove(moveId, buMove.GetRatingCrud());
                             } 
                             else 
                             {
@@ -107,7 +109,7 @@ class Program
         Console.ReadKey();
     }
         
-    //Rating
+    /*//Rating
     static void RateMove(int moveId, RatingCrud ratingCrud)
     {
         Console.WriteLine("Please add your rating for this move.");
@@ -136,7 +138,7 @@ class Program
         {
             Console.WriteLine("Something went wrong. Choose a number 1-5 for the review.");
         }
-    }
+    }*/
 
     static void PrintResults(dynamic results)
     {

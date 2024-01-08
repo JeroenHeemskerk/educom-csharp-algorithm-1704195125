@@ -1,67 +1,76 @@
 using Microsoft.EntityFrameworkCore;
+using BornToMove.DAL;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace BornToMove.DAL
 {
-    internal class MoveCrud
+    public class MoveCrud
     {
-        private MoveContext context;
-        public MoveCrud()
+        private MoveContext Context;
+        public MoveCrud(MoveContext context)
         {
-            context = new MoveContext();
+            Context = context;
         } 
 
         //Create move 
-        public void createMove(Move move)
+        public void CreateMove(Move newMove)
         {
-            Move newMove = new Move() 
-            { 
-                Name = move.Name, 
-                Description = move.Description, 
-                Sweat_rate = move.SweatRate
-                Ratings = move.Ratings 
-            };
-            context.Moves.Add(newMove);
-            context.SaveChanges();     
+            Context.Moves.Add(newMove);
+            Context.SaveChanges();     
         }
 
         //Update move by id
-        public void updateMoveById(Move updated Move)
+        public void UpdateMoveById(Move move)
         {
-            MoveCrud moveToUpdate = context.Moves.Include(m => m.MyRatings).FirstOrDefault(m => m.Id == move.Id);
+            Move moveToUpdate = Context.Moves?.FirstOrDefault(m => m.Id == move.Id);                     //Tussen Moves en First... Include(m => m.Ratings).
             if (moveToUpdate != null)
             {
-                moveToUpdate.name = move.Name;
-                moveToUpdate.Description = move.Description
-                moveToupdate.SweatRate = move.SweatRate;
-                moveToUpdate.Ratings = move.Ratings;
+                moveToUpdate.Name = move.Name;
+                moveToUpdate.Description = move.Description;
+                moveToUpdate.SweatRate = move.SweatRate;
+                //moveToUpdate.Ratings = move.Ratings;
 
-                context.SaveChanges();
+                Context.SaveChanges();
             }
         }
 
         //Delete move by id
-        public void deleteMoveById(int MoveId)
+        public void DeleteMoveById(int moveId)
         {
-            Move moveToDelete = context.Moves.FirstOrDefault(m => m.Id == moveId);
+            Move moveToDelete = Context.Moves?.FirstOrDefault(m => m.Id == moveId);
             if (moveToDelete != null)
             {
-                context.Moves.Remove(moveToDelete);
-                context.SaveChanges();
+                Context.Moves.Remove(moveToDelete);
+                Context.SaveChanges();
             }
         }
 
+        //Read one random move
+        public Move? ReadRandomMove()
+        {
+            Move move = Context.Moves?.OrderBy(m => Guid.NewGuid()).FirstOrDefault();
+            return move;
+        }
+
         //Read one move by id
-        public Move readMoveById(int moveId)
+        public Move? ReadMoveById(int moveId)
         {   
-            Move move = context.Moves.Include(m => m.Ratings).FirstOrDefault(m => m.Id == moveId);
+            Move move = Context.Moves?.FirstOrDefault(m => m.Id == moveId);               //Tussen Moves en Firts.. > Include(m => m.Ratings).
+            return move;
+        }
+
+        //Read move by name
+        public Move? ReadMoveByName(string name)
+        {   
+            Move move = Context.Moves?.FirstOrDefault(m => m.Name == name);               //Tussen Moves en Firts.. > Include(m => m.Ratings).
             return move;
         }
 
         //Read all moves
-        public List<Move> readAllMoves()
+        public List<Move> ReadAllMoves()
         {
-            List<Move> allMoves = context.Moves.Include(m => m.Ratings).ToList();
+            List<Move> allMoves = Context.Moves.ToList();                               //Tussen Moves en Firts.. > Include(m => m.Ratings).
             return allMoves;
         }
     }
