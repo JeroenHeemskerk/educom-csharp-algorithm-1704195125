@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace BornToMove.DAL
 {
     internal class MoveCrud
     {
-        MoveContext context = new MoveContext();
+        private MoveContext context;
+        public MoveCrud()
+        {
+            context = new MoveContext();
+        } 
 
         //Create move 
         public void createMove(Move move)
@@ -13,7 +18,8 @@ namespace BornToMove.DAL
             { 
                 Name = move.Name, 
                 Description = move.Description, 
-                Sweat_rate = move.SweatRate 
+                Sweat_rate = move.SweatRate
+                Ratings = move.Ratings 
             };
             context.Moves.Add(newMove);
             context.SaveChanges();     
@@ -46,16 +52,16 @@ namespace BornToMove.DAL
         }
 
         //Read one move by id
-        public void readMoveById(int moveId)
+        public Move readMoveById(int moveId)
         {   
-            Move move = context.Moves.Include(m => move.Ratings).FirstOrDefault(m => m.Id == moveId);
+            Move move = context.Moves.Include(m => m.Ratings).FirstOrDefault(m => m.Id == moveId);
             return move;
         }
 
         //Read all moves
-        public void readAllMoves()
+        public List<Move> readAllMoves()
         {
-            List<Move> allMoves = context.Blogs.Include(m => m.MyRatings).ToList();
+            List<Move> allMoves = context.Moves.Include(m => m.Ratings).ToList();
             return allMoves;
         }
     }

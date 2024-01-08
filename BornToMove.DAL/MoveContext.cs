@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BornToMove.DAL;
+namespace BornToMove.DAL
 {
 
     internal class MoveContext : DbContext 
