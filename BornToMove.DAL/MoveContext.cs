@@ -11,7 +11,8 @@ namespace BornToMove.DAL
 
     public class MoveContext : DbContext 
     {
-        private const string MYSQL_CONNECTION_STRING = "Server=localhost; User ID=nicole; Password=4cbfBC&~*4mmQmu; Database=Born2Move";
+        //private const string MYSQL_CONNECTION_STRING = "Server=localhost;Uid=nicole;Password=4cbfBC&~*4mmQmu;Database=Born2Move";
+        private const string MYSQL_CONNECTION_STRING = "Server=localhost;Database=Born2Move;User ID=nicole;Password=4cbfBC&~*4mmQmu;Pooling=true;";
         public DbSet<Move> Moves { get; set; }
         
         //public DbSet<Rating> Rating { get; set; }
