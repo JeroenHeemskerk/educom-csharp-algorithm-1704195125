@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Transactions;
 using BornToMove.Business;
 using BornToMove.DAL;
@@ -116,22 +117,21 @@ namespace BornToMove
             Console.ReadKey();
         }
 
-        static void PrintResults(dynamic results)
+        static void PrintResults(List<Move> moves)
         {
-            foreach (var result in results)
+            foreach (var result in moves)
             {
                 PrintResult(result);
             }
         }
 
-        static void PrintResult(dynamic result)
+        static void PrintResult(Move? move)
         {
-            if (result != null)
+            if (move != null)
             {
-                foreach (var property in result)
-                {
-                    Console.WriteLine($"{property.Key}: {property.Value}");
-                }
+                Console.WriteLine($"Naam: {move.Name}");
+                Console.WriteLine($"Naam: {move.Description}");
+                Console.WriteLine($"Naam: {move.SweatRate}");
                 Console.WriteLine("---------------");
             }
             else
