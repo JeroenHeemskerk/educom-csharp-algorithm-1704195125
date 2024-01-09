@@ -1,21 +1,19 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organizer", "Organizer\Organizer.csproj", "{216579BB-6648-4F76-ABE7-5B194A443053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organizer", "Organizer\Organizer.csproj", "{216579BB-6648-4F76-ABE7-5B194A443053}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2E06283-89E8-4DBE-9594-AA3C6135FCD4}"
-    ProjectSection(SolutionItems) = preProject
-        readme.md = readme.md
-    EndProjectSection
 EndProject
-   Project("{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}") = "BornToMove", "BornToMove\BornToMove.csproj", "{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}"
-   EndProject
-   Project("{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{AFA0FDA6-90B3-4FA2-ACF3-212E546B25AC}"
-   EndProject
-   Project("{D1331E5B-0B62-4FA2-A230-7F6667F9D73E}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{9F2FA3D8-7A42-45F4-8B1A-93061EEC89E0}"
-   EndProject
-   Global
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{91BC0DDB-E231-41EC-B7AF-F2888F3F623A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{668069A1-B15F-4167-AD33-8D3C78A7157E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove", "BornToMove\BornToMove.csproj", "{8E0B17D3-B414-4B16-BD51-4A0CD8F9FAFB}"
+EndProject
+Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -25,6 +23,18 @@ EndProject
 		{216579BB-6648-4F76-ABE7-5B194A443053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{216579BB-6648-4F76-ABE7-5B194A443053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{216579BB-6648-4F76-ABE7-5B194A443053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91BC0DDB-E231-41EC-B7AF-F2888F3F623A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BC0DDB-E231-41EC-B7AF-F2888F3F623A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BC0DDB-E231-41EC-B7AF-F2888F3F623A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BC0DDB-E231-41EC-B7AF-F2888F3F623A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{668069A1-B15F-4167-AD33-8D3C78A7157E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{668069A1-B15F-4167-AD33-8D3C78A7157E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{668069A1-B15F-4167-AD33-8D3C78A7157E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{668069A1-B15F-4167-AD33-8D3C78A7157E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E0B17D3-B414-4B16-BD51-4A0CD8F9FAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E0B17D3-B414-4B16-BD51-4A0CD8F9FAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E0B17D3-B414-4B16-BD51-4A0CD8F9FAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E0B17D3-B414-4B16-BD51-4A0CD8F9FAFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
