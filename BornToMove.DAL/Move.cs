@@ -10,8 +10,7 @@ namespace BornToMove.DAL
         public int Id { get; set; } = 0;            
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        [Column("sweat_rate")]
-        public int SweatRate { get; set; } = 0;
+        public int Rating { get; set; } = 0;
     }     
 }  
    

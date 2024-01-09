@@ -62,9 +62,9 @@ namespace BornToMove
                                     Console.WriteLine("Geef de omschrijving van de oefening:");
                                     string description = Console.ReadLine();
                                     Console.WriteLine("Geef het inspanningsniveau op van 1-5:");
-                                    if (int.TryParse(Console.ReadLine(), out int sweatRate)&& sweatRate >= 1 && sweatRate <= 5)
+                                    if (int.TryParse(Console.ReadLine(), out int Rating)&& Rating >= 1 && Rating <= 5)
                                     {
-                                        buMove.SaveMove(name, description, sweatRate);
+                                        buMove.SaveMove(name, description, Rating);
                                         Console.WriteLine("De oefening is succesvol aangemaakt.");
                                         break;
                                     }
@@ -125,7 +125,7 @@ namespace BornToMove
                 Console.WriteLine($"Id: {move.Id}");
                 Console.WriteLine($"Naam: {move.Name}");
                 Console.WriteLine($"Omschrijving: {move.Description}");
-                Console.WriteLine($"Inspanningsniveau: {move.SweatRate}");
+                Console.WriteLine($"Inspanningsniveau: {move.Rating}");
                 Console.WriteLine("---------------");
             }
             else

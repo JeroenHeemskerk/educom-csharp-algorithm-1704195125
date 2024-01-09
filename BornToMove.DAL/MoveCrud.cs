@@ -28,7 +28,7 @@ namespace BornToMove.DAL
             {
                 moveToUpdate.Name = move.Name;
                 moveToUpdate.Description = move.Description;
-                moveToUpdate.SweatRate = move.SweatRate;
+                moveToUpdate.Rating = move.Rating;
 
                 Context.SaveChanges();
             }

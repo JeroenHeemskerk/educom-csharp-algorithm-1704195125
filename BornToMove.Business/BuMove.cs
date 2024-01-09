@@ -37,13 +37,13 @@ namespace BornToMove.Business
         }
 
         //Move controleren en opslaan
-        public void SaveMove(string name, string description, int sweatRate)
+        public void SaveMove(string name, string description, int Rating)
         {
             Move move = new Move()
             {
                 Name = name, 
                 Description = description, 
-                SweatRate = sweatRate
+                Rating = Rating
             };
             MoveCrud.CreateMove(move);
         }
