@@ -14,84 +14,76 @@ namespace BornToMove
             MoveCrud moveCrud = new MoveCrud(moveContext);
             BuMove buMove = new BuMove(moveCrud);
             
-            Console.WriteLine("It's time to move!");
-            Console.WriteLine("Do you want a random move or pick a move?");
-            Console.WriteLine("Type 'random' or 'pick':");
+            Console.WriteLine("Het is tijd om te bewegen!");
+            Console.WriteLine("Wilt u een suggestie of zelf een oefening kiezen uit de lijst?");
+            Console.WriteLine("Typ 'suggestie' of 'lijst':");
             string answer;
             int moveId;
             string input;
             do
             {
                 answer = Console.ReadLine()?.ToLower();
-                if (answer == "random") 
+                if (answer == "suggestie") 
                 {
                     
                     Console.WriteLine("---------------");
-                    Console.WriteLine("Picking random move");
+                    Console.WriteLine("Er wordt een willekeurige oefening gekozen...");
                     Console.WriteLine("---------------");
                     var randomMove = buMove.GetRandomMove();
                     moveId = randomMove.Id;
                     PrintResult(randomMove);
-                    //RateMove(moveId, buMove.GetRatingCrud());
+                    GiveReview();
                 }
-                else if (answer == "pick")
+                else if (answer == "lijst")
                 {
                     Console.WriteLine("---------------");
-                    Console.WriteLine("Reading all moves...");
-                    Console.WriteLine("---------------");
+                    Console.WriteLine("Alle oefeningen worden opgehaald...");
                     var allMoves = buMove.GetAllMoves();
                     PrintResults(allMoves);
                     while (true)
                     { 
-                        Console.WriteLine("Pick a move by typing the id nummer here:");
-                        Console.WriteLine("If you want to add a move type 0.");
+                        Console.WriteLine("Kies een oefening en geef hier het id:");
+                        Console.WriteLine("Als u een oefening wilt toevoegen, typ 0.");
                         input = Console.ReadLine();
                         if (int.TryParse(input, out moveId))
                         {
                             if (moveId == 0)
                             {
-                                Console.WriteLine("Enter the name of the move:");
+                                Console.WriteLine("Geef de naam van de oefening:");
                                 string name = Console.ReadLine();
-                                Console.WriteLine("Checking if a move already exists...");
+                                Console.WriteLine("Controleren of deze oefening nog niet bestaat in het systeem...");
                                 var result = buMove.GetMoveByName(name);
                                 if (result != null)
                                 {
-                                    Console.WriteLine("This move already exist");
+                                    Console.WriteLine("Deze oefening bestaat al.");
                                 }
                                 else 
                                 {
-                                    Console.WriteLine("Enter a description of the move:");
+                                    Console.WriteLine("Geef de omschrijving van de oefening:");
                                     string description = Console.ReadLine();
-                                    Console.WriteLine("Enter the sweatrate of the move from 1-5:");
+                                    Console.WriteLine("Geef de intensiteit op van 1-5:");
                                     if (int.TryParse(Console.ReadLine(), out int sweatRate)&& sweatRate >= 1 && sweatRate <= 5)
                                     {
                                         buMove.SaveMove(name, description, sweatRate);
-                                        Console.WriteLine("Move created successfully.");
+                                        Console.WriteLine("De oefening is succesvol aangemaakt.");
                                         break;
                                     }
                                     else 
                                     {
-                                        Console.WriteLine("Invalid input for sweat rate. Please enter a valid number.");
+                                        Console.WriteLine("U gaf een ongeldige invoer, kies een id uit de lijst.");
                                     }
                                 }
                             } 
                             else 
                             {
                                 Console.WriteLine("---------------");
-                                Console.WriteLine("Getting move with id: " + moveId);
-                                Console.WriteLine("---------------");
-                                Console.WriteLine("Reading the move you picked...");
+                                Console.WriteLine("U koos de oefening met id: " + moveId + ". Deze oefening wordt opgehaald...");
                                 Console.WriteLine("---------------");
                                 var moveById = moveCrud.ReadMoveById(moveId);
                                 if (moveById != null)
                                 {
                                     PrintResult(moveById);
-                                    Console.WriteLine("---------------");
-                                    Console.WriteLine("Please add your rating for this move.");
-                                    Console.WriteLine("Pick a number from 1-5 for the review:");
-                                    int review = int.Parse(Console.ReadLine());
-                                    Console.WriteLine("Now, pick a number from 1-5 for the intensity:");
-                                    int intensity = int.Parse(Console.ReadLine());
+                                    GiveReview();
                                 } 
                                 else 
                                 {
@@ -102,18 +94,18 @@ namespace BornToMove
                         }
                         else
                         {
-                            Console.WriteLine("Something wend wrong, you have to pick a number from the list.");
+                            Console.WriteLine("Er ging iets mis, kies een id uit de lijst.");
                         }
                     }
                 } 
                 else {
-                    Console.WriteLine("Typ 'random' or 'pick'. ");
+                    Console.WriteLine("Typ 'suggestie' of 'lijst. ");
                 } 
 
-            } while (answer != "random" && answer != "pick");
+            } while (answer != "suggestie" && answer != "lijst");
             
             // Sluit de toepassing
-            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine("Druk op een toets om af te sluiten...");
             Console.ReadKey();
         }
 
@@ -125,19 +117,31 @@ namespace BornToMove
             }
         }
 
-        static void PrintResult(Move? move)
+        static void PrintResult(Move move)
         {
             if (move != null)
             {
+                Console.WriteLine("---------------");
+                Console.WriteLine($"Id: {move.Id}");
                 Console.WriteLine($"Naam: {move.Name}");
-                Console.WriteLine($"Naam: {move.Description}");
-                Console.WriteLine($"Naam: {move.SweatRate}");
+                Console.WriteLine($"Omschrijving: {move.Description}");
+                Console.WriteLine($"Intensiteit: {move.SweatRate}");
                 Console.WriteLine("---------------");
             }
             else
             {
-                Console.WriteLine("No results found for this id number.");
+                Console.WriteLine("Geen resultaten voor dit id nummer.");
             }
+        }
+
+        static void GiveReview()
+        {
+            Console.WriteLine("Geef alstublieft nog even uw mening over de oefening.");
+            Console.WriteLine("Beoordeling, kies een getal van 1-5:");
+            int review = int.Parse(Console.ReadLine());
+            Console.WriteLine("Intensiteit, kies een getal van 1-5:");
+            int intensity = int.Parse(Console.ReadLine());
+            Console.WriteLine("U gaaf deze oefening een " + review + " en voor intensiteit een " + intensity + ". Bedankt voor uw beoordeling!");
         }
     }
 }

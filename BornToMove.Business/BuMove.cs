@@ -49,7 +49,7 @@ namespace BornToMove.Business
         }
 
         //Move controleren en updaten
-        public void UpdateMove(Move move)           //aanpassen dat hij 
+        public void UpdateMove(Move move)       
         {
             MoveCrud.UpdateMoveById(move);
         }
