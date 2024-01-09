@@ -13,6 +13,8 @@ namespace BornToMove.DAL
     {
         private const string MYSQL_CONNECTION_STRING = "Server=localhost; User ID=nicole; Password=4cbfBC&~*4mmQmu; Database=Born2Move";
         public DbSet<Move> Moves { get; set; }
+        
+        //public DbSet<Rating> Rating { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
@@ -24,15 +26,5 @@ namespace BornToMove.DAL
             optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
             base.OnConfiguring(optionsBuilder);
         }
-
-       /*protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder) 
-        {
-            optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, ServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
-            optionsBuilder.UseMySql(MYSQL_CONNECTION_STRING, MySqlServerVersion.AutoDetect(MYSQL_CONNECTION_STRING));
-
-            
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-            base.OnConfiguring(optionsBuilder);
-        }*/
     }
 }

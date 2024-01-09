@@ -12,11 +12,13 @@ namespace BornToMove.DAL
 
        //public List<Ratings> Ratings { get; set; }
 
+    
        public Move(string name, string description, int sweatRate)
        {
             Name = name;
             Description = description;
             SweatRate = sweatRate;
        }
-    }
-}
+    }     
+}  
+   

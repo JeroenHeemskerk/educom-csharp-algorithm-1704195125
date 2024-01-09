@@ -13,7 +13,7 @@ namespace BornToMove.Business
         }
 
         //Willekeurige Move 
-        public Move GetRandomMove()
+        public Move? GetRandomMove()
         {
             return MoveCrud.ReadRandomMove();
         }
@@ -25,13 +25,13 @@ namespace BornToMove.Business
         }
 
         //Move by id
-        public Move GetMoveById(int moveId)
+        public Move? GetMoveById(int moveId)
         {
             return MoveCrud.ReadMoveById(moveId);
         }
 
         //Move by name
-        public Move GetMoveByName(string name)
+        public Move? GetMoveByName(string name)
         {
             return MoveCrud.ReadMoveByName(name);
         }
