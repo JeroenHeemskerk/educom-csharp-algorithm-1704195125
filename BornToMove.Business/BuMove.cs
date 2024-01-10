@@ -62,5 +62,24 @@ namespace BornToMove.Business
         {
             MoveCrud.UpdateMoveById(move);
         }
+
+        public void AddMoveRating(int moveId, double rating, double vote)
+        {
+            var move = MoveCrud.ReadMoveById(moveId);
+            if (move != null)
+            {
+                var moveRating = new MoveRating
+                {
+                    Move = move,
+                    Rating = rating,
+                    Vote = vote
+                };
+                MoveCrud.CreateMoveRating(moveRating);
+            }
+            else 
+            {
+                Console.WriteLine("Helaas is deze oefening niet gevonden.");
+            }
+        }
     }
 }

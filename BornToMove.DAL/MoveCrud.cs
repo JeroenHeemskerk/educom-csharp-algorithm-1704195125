@@ -27,6 +27,13 @@ namespace BornToMove.DAL
             Context.SaveChanges();     
         }
 
+        //Create MoveRating
+        public void CreateMoveRating(MoveRating newMoveRating)
+        {
+            Context.MoveRating.Add(newMoveRating);
+            Context.SaveChanges();
+        }
+
         //Update move by id
         public void UpdateMoveById(Move move)
         {

@@ -34,7 +34,7 @@ namespace BornToMove
                     var randomMove = buMove.GetRandomMove();
                     moveId = randomMove.Id;
                     PrintResult(randomMove);
-                    GiveReview();
+                    GiveReview(buMove, moveId);
                 }
                 else if (answer == "lijst")
                 {
@@ -78,7 +78,7 @@ namespace BornToMove
                                 if (moveById != null)
                                 {
                                     PrintResult(moveById);
-                                    GiveReview();
+                                    GiveReview(buMove, moveId);
                                 } 
                                 else 
                                 {   
@@ -130,14 +130,15 @@ namespace BornToMove
             }
         }
 
-        static void GiveReview()
+        static void GiveReview(BuMove buMove, int moveId)
         {
             Console.WriteLine("Geef alstublieft nog even uw mening over de oefening.");
             Console.WriteLine("Beoordeling, kies een getal van 1-5:");
             int vote = int.Parse(Console.ReadLine());
             Console.WriteLine("Intensiteit, kies een getal van 1-5:");
             int rating = int.Parse(Console.ReadLine());
-            Console.WriteLine("U gaaf deze oefening een " + vote + " en voor intensiteit een " + rating + ". Bedankt voor uw beoordeling!");
+            Console.WriteLine("U gaf deze oefening een " + vote + " en voor intensiteit een " + rating + ". Bedankt voor uw beoordeling!");
+            buMove.AddMoveRating(moveId, rating, vote);
         }
     }
 }
