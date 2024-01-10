@@ -37,7 +37,7 @@ namespace BornToMove.DAL.Migrations
 
                     b.Property<int>("Rating")
                         .HasColumnType("int")
-                        .HasColumnName("sweat_rate");
+                        .HasColumnName("rating");
 
                     b.HasKey("Id");
 
