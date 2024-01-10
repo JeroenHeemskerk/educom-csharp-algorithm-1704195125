@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BornToMove.DAL;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -12,6 +13,12 @@ namespace BornToMove.DAL
         {
             Context = context;
         } 
+
+        //Controleren of er iets in de tabel move staat
+        public bool IsAnyMove()
+        {
+            return Context.Moves.Any();
+        }
 
         //Create move 
         public void CreateMove(Move newMove)

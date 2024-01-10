@@ -13,6 +13,8 @@ namespace BornToMove
             MoveContext moveContext = new MoveContext();
             MoveCrud moveCrud = new MoveCrud(moveContext);
             BuMove buMove = new BuMove(moveCrud);
+
+            buMove.CheckAndAddMovesIfEmptyDb();
             
             Console.WriteLine("Het is tijd om te bewegen!");
             Console.WriteLine("Wilt u een suggestie of zelf een oefening kiezen uit de lijst?");
@@ -42,7 +44,7 @@ namespace BornToMove
                     PrintResults(allMoves);
                     while (true)
                     { 
-                        Console.WriteLine("Kies een oefening en geef hier het id:");
+                        Console.WriteLine("Kies een oefening uit de lijst en geef hier het id:");
                         Console.WriteLine("Als u een oefening wilt toevoegen, typ 0.");
                         input = Console.ReadLine();
                         if (int.TryParse(input, out moveId))
@@ -61,17 +63,10 @@ namespace BornToMove
                                 {
                                     Console.WriteLine("Geef de omschrijving van de oefening:");
                                     string description = Console.ReadLine();
-                                    Console.WriteLine("Geef het inspanningsniveau op van 1-5:");
-                                    if (int.TryParse(Console.ReadLine(), out int Rating)&& Rating >= 1 && Rating <= 5)
-                                    {
-                                        buMove.SaveMove(name, description, Rating);
-                                        Console.WriteLine("De oefening is succesvol aangemaakt.");
-                                        break;
-                                    }
-                                    else 
-                                    {
-                                        Console.WriteLine("U gaf een ongeldige invoer, kies een id uit de lijst.");
-                                    }
+                                    buMove.SaveMove(name, description);
+                                    Console.WriteLine("De oefening is succesvol aangemaakt.");
+                                    Console.WriteLine("Naam: " + name + ", omschrijving: " + description);
+                                    break;
                                 }
                             } 
                             else 
@@ -86,7 +81,8 @@ namespace BornToMove
                                     GiveReview();
                                 } 
                                 else 
-                                {
+                                {   
+                                    Console.WriteLine("Er ging iets mis.");
                                     continue;
                                 }
                                 break;
@@ -125,7 +121,7 @@ namespace BornToMove
                 Console.WriteLine($"Id: {move.Id}");
                 Console.WriteLine($"Naam: {move.Name}");
                 Console.WriteLine($"Omschrijving: {move.Description}");
-                Console.WriteLine($"Inspanningsniveau: {move.Rating}");
+                //Console.WriteLine($"Inspanningsniveau: {move.Rating}");
                 Console.WriteLine("---------------");
             }
             else
@@ -138,10 +134,10 @@ namespace BornToMove
         {
             Console.WriteLine("Geef alstublieft nog even uw mening over de oefening.");
             Console.WriteLine("Beoordeling, kies een getal van 1-5:");
-            int review = int.Parse(Console.ReadLine());
+            int vote = int.Parse(Console.ReadLine());
             Console.WriteLine("Intensiteit, kies een getal van 1-5:");
-            int intensity = int.Parse(Console.ReadLine());
-            Console.WriteLine("U gaaf deze oefening een " + review + " en voor intensiteit een " + intensity + ". Bedankt voor uw beoordeling!");
+            int rating = int.Parse(Console.ReadLine());
+            Console.WriteLine("U gaaf deze oefening een " + vote + " en voor intensiteit een " + rating + ". Bedankt voor uw beoordeling!");
         }
     }
 }

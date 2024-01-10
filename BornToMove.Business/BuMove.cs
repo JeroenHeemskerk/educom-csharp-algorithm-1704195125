@@ -12,6 +12,16 @@ namespace BornToMove.Business
             MoveCrud = moveCrud;
         }
 
+        public void CheckAndAddMovesIfEmptyDb()
+        {
+            if (!MoveCrud.IsAnyMove())
+            {
+                MoveCrud.CreateMove(new Move {Name = "Push up", Description = "Ga horizontaal liggen op teentoppen en handen. Laat het lijf langzaam zakken tot de neus de grond bijna raakt. Duw het lijf terug nu omhoog tot de ellebogen bijna gestrekt zijn. Vervolgens weer laten zakken. Doe dit 20 keer zonder tussenpauzes."});
+                MoveCrud.CreateMove(new Move {Name = "Planking", Description = "Ga horizontaal liggen op teentoppen en onderarmen. Houdt deze positie 1 minuut vast."});
+                MoveCrud.CreateMove(new Move {Name = "Squat", Description = "Ga staan met gestrekte armen. Zak door de knieën tot de billen de grond bijna raken. Ga weer volledig gestrekt staan. Herhaal dit 20 keer zonder tussenpauzes."});
+            }
+        }
+
         //Willekeurige Move 
         public Move? GetRandomMove()
         {
@@ -37,13 +47,12 @@ namespace BornToMove.Business
         }
 
         //Move controleren en opslaan
-        public void SaveMove(string name, string description, int Rating)
+        public void SaveMove(string name, string description)
         {
             Move move = new Move()
             {
                 Name = name, 
                 Description = description, 
-                Rating = Rating
             };
             MoveCrud.CreateMove(move);
         }
