@@ -33,7 +33,7 @@ namespace BornToMove
                     Console.WriteLine("---------------");
                     var randomMove = buMove.GetRandomMove();
                     moveId = randomMove.Id;
-                    PrintResult(randomMove);
+                    PrintResult(randomMove, buMove);
                     GiveReview(buMove, moveId);
                 }
                 else if (answer == "lijst")
@@ -41,7 +41,7 @@ namespace BornToMove
                     Console.WriteLine("---------------");
                     Console.WriteLine("Alle oefeningen worden opgehaald...");
                     var allMoves = buMove.GetAllMoves();
-                    PrintResults(allMoves);
+                    PrintResults(allMoves, buMove);
                     while (true)
                     { 
                         Console.WriteLine("Kies een oefening uit de lijst en geef hier het id:");
@@ -77,7 +77,7 @@ namespace BornToMove
                                 var moveById = moveCrud.ReadMoveById(moveId);
                                 if (moveById != null)
                                 {
-                                    PrintResult(moveById);
+                                    PrintResult(moveById, buMove);
                                     GiveReview(buMove, moveId);
                                 } 
                                 else 
@@ -105,15 +105,15 @@ namespace BornToMove
             Console.ReadKey();
         }
 
-        static void PrintResults(List<Move> moves)
+        static void PrintResults(List<Move> moves, BuMove buMove)
         {
             foreach (var result in moves)
             {
-                PrintResult(result);
+                PrintResult(result, buMove);
             }
         }
 
-        static void PrintResult(Move move)
+        static void PrintResult(Move move, BuMove buMove)
         {
             if (move != null)
             {
@@ -121,7 +121,9 @@ namespace BornToMove
                 Console.WriteLine($"Id: {move.Id}");
                 Console.WriteLine($"Naam: {move.Name}");
                 Console.WriteLine($"Omschrijving: {move.Description}");
-                //Console.WriteLine($"Inspanningsniveau: {move.Rating}");
+                double avgMoveRating = buMove.CalcAvgMoveRating((List<MoveRating>)move.Ratings);
+                Console.WriteLine($"Inspanningsniveau: {avgMoveRating}");
+
                 Console.WriteLine("---------------");
             }
             else

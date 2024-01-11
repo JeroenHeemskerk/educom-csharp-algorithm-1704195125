@@ -69,22 +69,36 @@ namespace BornToMove.DAL
         //Read one move by id
         public Move? ReadMoveById(int moveId)
         {   
-            Move? move = Context.Moves?.FirstOrDefault(m => m.Id == moveId);               //Tussen Moves en Firts.. > Include(m => m.Ratings).
+            Move? move = Context.Moves?
+                .Include(m => m.Ratings)
+                .FirstOrDefault(m => m.Id == moveId);               
             return move;
         }
 
         //Read move by name
         public Move? ReadMoveByName(string name)
         {   
-            Move? move = Context.Moves?.FirstOrDefault(m => m.Name == name);               //Tussen Moves en Firts.. > Include(m => m.Ratings).
+            Move? move = Context.Moves?
+                .Include(m => m.Ratings)
+                .FirstOrDefault(m => m.Name == name);               
             return move;
         }
 
         //Read all moves
         public List<Move> ReadAllMoves()
         {
-            List<Move> allMoves = Context.Moves.ToList();                               //Tussen Moves en Firts.. > Include(m => m.Ratings).
+            List<Move> allMoves = Context.Moves
+                .Include(m => m.Ratings)
+                .ToList();                               
             return allMoves;
         }
+
+        //MoveRatings gemiddelde berekenen
+        
+        /* var MovesWithRating = context.Moves.Include(m => m.Ratings);
+            Avg = MovesWithRating.Select(m => new MoveRating)
+            {Move = m, 
+            Rating = m.Rating.Select(rating => rating.Rating).DefaultIfEmpty().Average(),
+            Vote = m.Vote.Select(vote => rating.Vote).DefauldIfEmtpy().Average()}*/
     }
 }

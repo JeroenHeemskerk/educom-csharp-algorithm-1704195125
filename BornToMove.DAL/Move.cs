@@ -10,7 +10,7 @@ namespace BornToMove.DAL
         public int Id { get; set; } = 0;            
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        virtual public ICollection<MoveRating>? Ratings { get; set; }
+        virtual public ICollection<MoveRating>? Ratings { get; set; } = new List<MoveRating>();
     }     
 }  
    

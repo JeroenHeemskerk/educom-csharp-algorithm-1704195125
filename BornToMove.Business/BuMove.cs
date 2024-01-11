@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using BornToMove.DAL;
 
 namespace BornToMove.Business
@@ -63,6 +64,7 @@ namespace BornToMove.Business
             MoveCrud.UpdateMoveById(move);
         }
 
+        //Rating toevoegen
         public void AddMoveRating(int moveId, double rating, double vote)
         {
             var move = MoveCrud.ReadMoveById(moveId);
@@ -80,6 +82,14 @@ namespace BornToMove.Business
             {
                 Console.WriteLine("Helaas is deze oefening niet gevonden.");
             }
+        }
+        public double CalcAvgMoveRating(List<MoveRating> moveRatings)
+        {
+            if (moveRatings.Any())
+            {
+                return moveRatings.Average(mr => mr.Rating);
+            }
+            return 0;
         }
     }
 }
