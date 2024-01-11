@@ -37,12 +37,11 @@ namespace BornToMove.DAL
         //Update move by id
         public void UpdateMoveById(Move move)
         {
-            Move? moveToUpdate = Context.Moves?.FirstOrDefault(m => m.Id == move.Id);                     //Tussen Moves en First... Include(m => m.Ratings).
+            Move? moveToUpdate = Context.Moves?.FirstOrDefault(m => m.Id == move.Id);                     
             if (moveToUpdate != null)
             {
                 moveToUpdate.Name = move.Name;
                 moveToUpdate.Description = move.Description;
-                moveToUpdate.Ratings = move.Ratings;
 
                 Context.SaveChanges();
             }
@@ -92,13 +91,5 @@ namespace BornToMove.DAL
                 .ToList();                               
             return allMoves;
         }
-
-        //MoveRatings gemiddelde berekenen
-        
-        /* var MovesWithRating = context.Moves.Include(m => m.Ratings);
-            Avg = MovesWithRating.Select(m => new MoveRating)
-            {Move = m, 
-            Rating = m.Rating.Select(rating => rating.Rating).DefaultIfEmpty().Average(),
-            Vote = m.Vote.Select(vote => rating.Vote).DefauldIfEmtpy().Average()}*/
     }
 }
