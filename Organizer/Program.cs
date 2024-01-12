@@ -12,14 +12,14 @@ namespace Organizer
             if(int.TryParse(Console.ReadLine(), out int numberOfElements))
             {
                 ShiftHighestSort shiftSorter = new ShiftHighestSort();
-                RotatePivotSort rotateSorter = new RotatePivotSort();
+                RotatePivotSort<int> rotateSorter = new RotatePivotSort<int>();
 
                 // UnsortedList with random numbers
                 Stopwatch unsortedStopwatch = Stopwatch.StartNew();
                 List <int> randomNumbers = MakeList(numberOfElements);
                 unsortedStopwatch.Stop();
                 ShowList("Unsorted List", randomNumbers);
-                Console.WriteLine($"UnsortedList Time: {unsortedStopwatch.ElapsedTicks} ticks");
+                Console.WriteLine($"UnsortedList Time: {unsortedStopwatch.Elapsed} milliseconden");
 
                 // ShiftHigestSort
                 Stopwatch shiftStopwatch = Stopwatch.StartNew();
@@ -28,16 +28,16 @@ namespace Organizer
                 ShowList("Sorted List ShiftHighestSort", shiftSortedNumbers);
                 bool isShiftSorted = ValidateSortedArray(shiftSortedNumbers);
                 Console.WriteLine($"Is the list correctly sorted? {isShiftSorted}");    
-                Console.WriteLine($"ShiftHighestSort Time: {shiftStopwatch.ElapsedTicks} ticks");
+                Console.WriteLine($"ShiftHighestSort Time: {shiftStopwatch.Elapsed} milliseconden");
 
                 // RotateSort
                 Stopwatch rotateStopwatch = Stopwatch.StartNew();
-                List<int> rotateSortedNumbers = rotateSorter.RotateSort(randomNumbers);
+                List<int> rotateSortedNumbers = rotateSorter.RotateSort(randomNumbers, Comparer<int>.Default);
                 rotateStopwatch.Stop();
                 ShowList("Sorted List RotateSort", rotateSortedNumbers);
                 bool isRotateSorted = ValidateSortedArray(rotateSortedNumbers);
                 Console.WriteLine($"Is the list correctly sorted? {isRotateSorted}");
-                Console.WriteLine($"RotateSort Time: {rotateStopwatch.ElapsedTicks} ticks");
+                Console.WriteLine($"RotateSort Time: {rotateStopwatch.Elapsed} milliseconden");
             } else {
                 Console.WriteLine("Je kunt alleen een positief getal invullen.");            }
         }
