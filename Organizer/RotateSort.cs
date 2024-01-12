@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Organizer
 {
-	public class RotatePivotSort
+	public class RotatePivotSort<T>
 	{
 
-        private List<int> array = new List<int>();
+        private List<T> array;
+        private IComparer<T> Comparer;  
 
-        public List<int> RotateSort(List<int> input)
+        public List<T> RotateSort(List<T> input, IComparer<T> comparer)
         {
-            array = new List<int>(input);
+            array = new List<T>(input);
+            Comparer = comparer;
             RotateSortFunction(0, array.Count - 1);
             return array;
         }
@@ -27,11 +33,11 @@ namespace Organizer
 
         private int Partitioning(int low, int high)
         {
-            int pivot = array[high];
+            T pivot = array[high];
             int splitPoint = low - 1;
             for (int i = low; i < high; i++)
             {
-                if (array[i] <= pivot)
+                if (Comparer.Compare(array[i], pivot) <= 0)
                 {
                     splitPoint++;
                     Swap(i, splitPoint);
@@ -43,7 +49,7 @@ namespace Organizer
 
         private void Swap(int i, int j)
         {
-            int temp = array[i];
+            T temp = array[i];
             array[i] = array[j];
             array[j] = temp;
         }

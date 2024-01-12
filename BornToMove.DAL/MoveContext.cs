@@ -13,12 +13,7 @@ namespace BornToMove.DAL
     {
         private const string MYSQL_CONNECTION_STRING = "Server=localhost;Database=Born2Move;User ID=nicole;Password=4cbfBC&~*4mmQmu;Pooling=true;";
         public DbSet<Move> Moves { get; set; }
-        public DbSet<MoveRating> MoveRating { get; set; }
-        public bool IsMoveTableEmpte()
-        {
-            return !Moves.Any();
-        }
-        
+        public DbSet<MoveRating> MoveRating { get; set; }        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
