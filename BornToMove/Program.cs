@@ -74,9 +74,9 @@ namespace BornToMove
                             {
                                 if (moveIndex >= 1 && moveIndex <= allMoves.Count)
                                 {
-                                    int moveId = allMoves[moveIndex  - 1].Id;
+                                    moveId = allMoves[moveIndex  - 1].Id;
                                     Console.WriteLine("---------------");
-                                    Console.WriteLine("U koos de oefening met id: " + moveIndex + ". Deze oefening wordt opgehaald...");
+                                    Console.WriteLine("U koos de oefening met nummer: " + moveIndex + ". Deze oefening wordt opgehaald...");
                                     Console.WriteLine("---------------");
                                     var moveById = moveCrud.ReadMoveById(moveId);
                                     if (moveById != null)
@@ -95,7 +95,7 @@ namespace BornToMove
                         }
                         else
                         {
-                            Console.WriteLine("Er ging iets mis, kies een id uit de lijst.");
+                            Console.WriteLine("Er ging iets mis, kies een nummer uit de lijst.");
                         }
                     }
                 } 
