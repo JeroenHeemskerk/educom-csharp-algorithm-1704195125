@@ -33,8 +33,8 @@ namespace BornToMove
                     Console.WriteLine("Er wordt een willekeurige oefening gekozen...");
                     Console.WriteLine("---------------");
                     var randomMove = buMove.GetRandomMove();
-                    moveId = randomMove.Id;
-                    PrintResult(randomMove, buMove);
+                    moveId = randomMove.Move.Id;
+                    PrintResult(randomMove);
                     GiveReview(buMove, moveId);
                 }
                 else if (answer == "lijst")
@@ -42,7 +42,7 @@ namespace BornToMove
                     Console.WriteLine("---------------");
                     Console.WriteLine("Alle oefeningen worden opgehaald...");
                     var allMoves = buMove.GetAllMoves();
-                    PrintResults(allMoves, buMove);
+                    PrintResults(allMoves);
                     while (true)
                     { 
                         Console.WriteLine("Kies een oefening uit de lijst en geef hier het nummer in en druk op enter:");
@@ -81,7 +81,7 @@ namespace BornToMove
                                     var moveById = moveCrud.ReadMoveById(moveId);
                                     if (moveById != null)
                                     {
-                                        PrintResult(moveById, buMove);
+                                        PrintResult(moveById);
                                         GiveReview(buMove, moveId);
                                     } 
                                     else 
@@ -110,23 +110,22 @@ namespace BornToMove
             Console.ReadKey();
         }
 
-        static void PrintResults(List<Move> moves, BuMove buMove)
+        static void PrintResults(List<MoveRating> moves)
         {
             for (int i = 0; i < moves.Count; i++)
             {
                 Console.WriteLine($"Nummer: {i + 1}");
-                PrintResult(moves[i], buMove);
+                PrintResult(moves[i]);
             }
         }
 
-        static void PrintResult(Move move, BuMove buMove)
+        static void PrintResult(MoveRating moveRating)
         {
-            if (move != null)
+            if (moveRating != null)
             {
-                Console.WriteLine($"Naam: {move.Name}");
-                Console.WriteLine($"Omschrijving: {move.Description}");
-                double avgMoveRating = buMove.CalcAvgMoveRating((List<MoveRating>)move.Ratings);
-                Console.WriteLine($"Inspanningsniveau: {avgMoveRating}");
+                Console.WriteLine($"Naam: {moveRating.Move.Name}");
+                Console.WriteLine($"Omschrijving: {moveRating.Move.Description}");
+                Console.WriteLine($"Inspanningsniveau: {moveRating.Rating}");
 
                 Console.WriteLine("---------------");
             }
