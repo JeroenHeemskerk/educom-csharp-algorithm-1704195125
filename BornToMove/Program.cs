@@ -74,7 +74,7 @@ namespace BornToMove
                             {
                                 if (moveIndex >= 1 && moveIndex <= allMoves.Count)
                                 {
-                                    moveId = allMoves[moveIndex  - 1].Id;
+                                    moveId = allMoves[moveIndex  - 1].Move.Id;
                                     Console.WriteLine("---------------");
                                     Console.WriteLine("U koos de oefening met nummer: " + moveIndex + ". Deze oefening wordt opgehaald...");
                                     Console.WriteLine("---------------");
@@ -89,8 +89,12 @@ namespace BornToMove
                                         Console.WriteLine("Er ging iets mis.");
                                         continue;
                                     }
+                                } else 
+                                {
+                                    Console.WriteLine("Er ging iets mis, kies een nummer uit de lijst.");
+                                    continue;
                                 }
-                                break;
+                            break;
                             }
                         }
                         else

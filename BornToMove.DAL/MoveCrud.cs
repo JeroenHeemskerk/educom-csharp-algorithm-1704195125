@@ -90,7 +90,7 @@ namespace BornToMove.DAL
                     Rating = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Rating) : 0,
                     Vote = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Vote) : 0
                 })
-                .First();
+                .FirstOrDefault();
             return moveById;
         }
 
