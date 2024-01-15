@@ -24,20 +24,20 @@ namespace BornToMove.Business
             }
         }
 
-        //Willekeurige Move 
-        public Move? GetRandomMove()
+        /*//Willekeurige Move 
+        public MoveRating GetRandomMove()
         {
             return MoveCrud.ReadRandomMove();
-        }
+        }*/
 
         //Lijst met alle moves
-        public List<Move> GetAllMoves()
+        public List<MoveRating> GetAllMoves()
         {
             return MoveCrud.ReadAllMoves();
         }
 
         //Move by id
-        public Move? GetMoveById(int moveId)
+        public MoveRating GetMoveById(int moveId)
         {
             return MoveCrud.ReadMoveById(moveId);
         }
@@ -66,17 +66,12 @@ namespace BornToMove.Business
         }
 
         //Rating toevoegen
-        public void AddMoveRating(int moveId, double rating, double vote)
+        public void AddMoveRating(int moveId, int rating, int vote)
         {
             var move = MoveCrud.ReadMoveById(moveId);
             if (move != null)
             {
-                var moveRating = new MoveRating
-                {
-                    Move = move,
-                    Rating = rating,
-                    Vote = vote
-                };
+                MoveRating moveRating = new MoveRating(move.Move, rating, vote);
                 MoveCrud.CreateMoveRating(moveRating);
             }
             else 

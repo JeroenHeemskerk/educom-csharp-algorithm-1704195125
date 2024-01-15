@@ -58,20 +58,29 @@ namespace BornToMove.DAL
             }
         }
 
-        //Read one random move
+        /*/Read one random move
         public Move? ReadRandomMove()
         {
-            Move? move = Context.Moves?.OrderBy(m => Guid.NewGuid()).FirstOrDefault();
+            Move? move = Context.Moves?
+                .OrderBy(m => Guid.NewGuid())
+            .FirstOrDefault();
             return move;
-        }
+        }*/
 
         //Read one move by id
-        public Move? ReadMoveById(int moveId)
+        public MoveRating ReadMoveById(int moveId)
         {   
-            Move? move = Context.Moves?
+            MoveRating moveById = Context.Moves
                 .Include(m => m.Ratings)
-                .FirstOrDefault(m => m.Id == moveId);               
-            return move;
+                .Where(m => m.Id == moveId)
+                .Select(move => new MoveRating()
+                {
+                    Move = move,
+                    Rating = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Rating) : 0,
+                    Vote = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Vote) : 0
+                })
+                .First();
+            return moveById;
         }
 
         //Read move by name
@@ -83,13 +92,42 @@ namespace BornToMove.DAL
             return move;
         }
 
+        /*/Read all moves 
+        public List<Move> ReadAllMoves() 
+        { 
+            List<Move> allMoves = Context.Moves 
+                .Include(m => m.Ratings) 
+                .ToList();                                
+            return allMoves; 
+        } */
+
         //Read all moves
-        public List<Move> ReadAllMoves()
+        public List<MoveRating> ReadAllMoves()
         {
-            List<Move> allMoves = Context.Moves
+            List<MoveRating> allMoves = Context.Moves
                 .Include(m => m.Ratings)
-                .ToList();                               
+                .Select(move => new MoveRating()
+                {
+                    Move = move,
+                    Rating = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Rating) : 0,
+                    Vote = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Vote) : 0
+                })
+                .ToList();
             return allMoves;
         }
+
+        /*//Read all moves 
+        public List<MoveRating> ReadAllMoves() 
+        { 
+            List<MoveRating> allMoves = Context.Moves 
+                .Include(m => m.Ratings)
+                .Select(m => new MoveRating() 
+                        {
+                            Move = m, 
+                            /* ... 
+                        }
+                .ToList();                                
+            return allMoves; 
+        }*/
     }
 }
