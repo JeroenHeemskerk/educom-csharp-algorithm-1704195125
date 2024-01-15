@@ -115,6 +115,7 @@ namespace BornToMove.DAL
                     Vote = move.Ratings != null && move.Ratings.Any() ? move.Ratings.Average(r => r.Vote) : 0
                 })
                 .ToList();
+            allMoves.Sort(new RatingsConverter());
             return allMoves;
         }
     }
