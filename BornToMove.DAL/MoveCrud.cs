@@ -58,14 +58,25 @@ namespace BornToMove.DAL
             }
         }
 
-        /*/Read one random move
-        public Move? ReadRandomMove()
+        //Read random move
+        public MoveRating ReadRandomMove()
         {
-            Move? move = Context.Moves?
+            Move randomMove = Context.Moves
+                .Include(m => m.Ratings)
                 .OrderBy(m => Guid.NewGuid())
-            .FirstOrDefault();
-            return move;
-        }*/
+                .FirstOrDefault();
+            if (randomMove != null)
+            {
+                MoveRating moveRating = new MoveRating()
+                {
+                    Move = randomMove,
+                    Rating = randomMove.Ratings != null && randomMove.Ratings.Any() ? randomMove.Ratings.Average(r => r.Rating) : 0,
+                    Vote = randomMove.Ratings != null && randomMove.Ratings.Any() ? randomMove.Ratings.Average(r => r.Vote) : 0
+                };
+                return moveRating;
+            }
+            return null;
+        }
 
         //Read one move by id
         public MoveRating ReadMoveById(int moveId)
@@ -92,15 +103,6 @@ namespace BornToMove.DAL
             return move;
         }
 
-        /*/Read all moves 
-        public List<Move> ReadAllMoves() 
-        { 
-            List<Move> allMoves = Context.Moves 
-                .Include(m => m.Ratings) 
-                .ToList();                                
-            return allMoves; 
-        } */
-
         //Read all moves
         public List<MoveRating> ReadAllMoves()
         {
@@ -115,19 +117,5 @@ namespace BornToMove.DAL
                 .ToList();
             return allMoves;
         }
-
-        /*//Read all moves 
-        public List<MoveRating> ReadAllMoves() 
-        { 
-            List<MoveRating> allMoves = Context.Moves 
-                .Include(m => m.Ratings)
-                .Select(m => new MoveRating() 
-                        {
-                            Move = m, 
-                            /* ... 
-                        }
-                .ToList();                                
-            return allMoves; 
-        }*/
     }
 }

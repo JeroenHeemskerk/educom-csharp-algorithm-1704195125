@@ -24,11 +24,11 @@ namespace BornToMove.Business
             }
         }
 
-        /*//Willekeurige Move 
+        //Willekeurige Move 
         public MoveRating GetRandomMove()
         {
             return MoveCrud.ReadRandomMove();
-        }*/
+        }
 
         //Lijst met alle moves
         public List<MoveRating> GetAllMoves()
