@@ -18,7 +18,7 @@ namespace Organizer
             int i, j;
             for (i = low; i<= high; i++)
             {
-                for (j = low; j<= high - 1; j++)
+                for (j = low; j<= high - i; j++)
                 {
                     if (array[j] > array[j + 1])
                     {
