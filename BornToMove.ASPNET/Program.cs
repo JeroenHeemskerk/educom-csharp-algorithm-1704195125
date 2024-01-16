@@ -1,7 +1,15 @@
+using BornToMove.DAL;
+using BornToMove.Business;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MoveContext>(); 
+builder.Services.TryAddScoped<MoveCrud>();
+builder.Services.TryAddScoped<BuMove>();
 
 var app = builder.Build();
 
