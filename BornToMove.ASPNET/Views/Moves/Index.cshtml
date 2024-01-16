@@ -1,0 +1,45 @@
+@model IEnumerable<BornToMove.DAL.MoveRating>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lijst met oefeningen</h1>
+
+<p>
+    <a asp-action="Create">Oefening toevoegen</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Move.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Move.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Move.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Move.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-returnPath="Moves" asp-route-id="@item.Move.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BornToMove.DAL
@@ -9,6 +10,7 @@ namespace BornToMove.DAL
     {
         public int Id { get; set; } = 0;            
         public Move? Move { get; set; }
+        [Display(Name ="Intensiteit")]
         public double Rating { get; set; }
         public double Vote { get; set; }
     

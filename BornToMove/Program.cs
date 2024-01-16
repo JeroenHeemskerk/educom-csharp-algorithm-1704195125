@@ -78,7 +78,7 @@ namespace BornToMove
                                     Console.WriteLine("---------------");
                                     Console.WriteLine("U koos de oefening met nummer: " + moveIndex + ". Deze oefening wordt opgehaald...");
                                     Console.WriteLine("---------------");
-                                    var moveById = moveCrud.ReadMoveById(moveId);
+                                    var moveById = buMove.GetMoveById(moveId);
                                     if (moveById != null)
                                     {
                                         PrintResult(moveById);
