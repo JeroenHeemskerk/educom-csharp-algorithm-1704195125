@@ -15,7 +15,6 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <ProjectReference Include="..\BornToMove.Business\BornToMove.Business.csproj" />
     <ProjectReference Include="..\BornToMove.DAL\BornToMove.DAL.csproj" />
-
   </ItemGroup>
 
 </Project>
